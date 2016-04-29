@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace Model
 {
-    public class TemplateVariableRevisionItem
+    public class TemplateVariableRevisionItem : IValidatableObject
     {
         public TemplateVariableRevisionItem()
         {
@@ -26,5 +27,22 @@ namespace Model
 
         [Required(ErrorMessage = "Date of Revision is required.")]
         public DateTime Date { get; set; }
+
+        [NotMapped]
+        public IList<ValidationResult> ValidationResults
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool IsValid()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasErrors()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

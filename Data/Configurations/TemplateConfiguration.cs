@@ -11,8 +11,8 @@ namespace Data.Configurations
     {
         public TemplateConfiguration()
         {
-            this.HasMany(x=>x.TemplateVariables);
             this.Property(c => c.id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            this.HasMany(Template.TemplateVariablesAccessor);
         }
     }
 }

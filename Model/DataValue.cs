@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace Model
 {
+    
+    [Serializable]
     public class DataValue : IValidatableObject
     {
 
@@ -14,14 +17,14 @@ namespace Model
         {
             RevisionItems = new List<DataValueRevisionItem>();
         }
-
+        [XmlElement]
         [Key]
         public int id { get; set; }
-        
+        [XmlElement]
         [Required(ErrorMessage = "Data Values must have a Variable Name.")]
         public string Name { get; set; }
-
-
+        [XmlElement]
+        [NotMapped]
         public string Value
         {
             get
@@ -39,10 +42,8 @@ namespace Model
                 RevisionItems.Add(nValue);
             }
         }
-
+        [XmlIgnore]
         public virtual ICollection<DataValueRevisionItem> RevisionItems { get; set; }
-        
-
         
         [NotMapped]
         public IList<ValidationResult> ValidationResults

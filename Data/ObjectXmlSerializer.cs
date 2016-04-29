@@ -20,14 +20,14 @@ namespace Data
             return O;
         }
 
-        public static string ToXMLString(this object O)
+        public static string ToXMLString<T>(this T O)
         {
 
             string xml = null;
             using (StringWriter sw = new StringWriter())
             {
 
-                XmlSerializer xs = new XmlSerializer(typeof(object));
+                XmlSerializer xs = new XmlSerializer(typeof(T));
                 xs.Serialize(sw, O);
                 try
                 {
@@ -41,6 +41,7 @@ namespace Data
             }
             return xml;
         }
+
     }
     
 }

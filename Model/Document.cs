@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,19 +10,28 @@ using System.Xml.Serialization;
 
 namespace Model
 {
-    public class Document : IValidatableObject, IXmlSerializable
+    [Serializable]
+    public class Document : IValidatableObject
     {
+        private Template _template;
+        
+        private List<ValidationResult> _validationResults;
+
         public Document()
         {
-            DataValues = new HashSet<DataValue>();
+            _DataValues = new List<DataValue>();
         }
 
         [Key]
+        [XmlElement("id")]
         public int id { get; set; }
+        
         [Required(ErrorMessage = "Documents Must have a Unique Title..")]
+        [XmlElement("Title")]
         public string Title { get; set; }
-        private Template _template;
+          
         [Required(ErrorMessage= "Documents Must Be Based on a Template.")]
+        [XmlElement]
         public virtual Template Template 
         {
             get
@@ -35,8 +45,17 @@ namespace Model
 
             }
         }
-        public virtual ICollection<DataValue> DataValues { get; set; }
+
+        
+        protected virtual ICollection<DataValue> _DataValues { get; set; }
+        
+        [XmlElement]
+        public IEnumerable<DataValue> DataValues { get { return _DataValues; } }
+        
+        public static Expression<Func<Document, ICollection<DataValue>>> DataValuesAccessor = f => f._DataValues;
+        
         [NotMapped]
+        [XmlIgnore]
         public IList<ValidationResult> ValidationResults
         {
             get
@@ -68,12 +87,8 @@ namespace Model
             {
                 throw new ArgumentException("Duplicate Value.");
             }
-            DataValues.Add(dv);
+            ((List<DataValue>)DataValues).Add(dv);
         }
-
-
-
-        private List<ValidationResult> _validationResults;
 
         public bool IsValid()
         {
@@ -86,19 +101,6 @@ namespace Model
         }
 
 
-        public System.Xml.Schema.XmlSchema GetSchema()
-        {
-            return null;
-        }
 
-        public void ReadXml(System.Xml.XmlReader reader)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteXml(System.Xml.XmlWriter writer)
-        {
-            throw new NotImplementedException;
-        }
     }
 }

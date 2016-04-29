@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace Model
 {
-    public class TemplateVariable
+    [Serializable]
+    public class TemplateVariable : IValidatableObject
     {
 
         public TemplateVariable()
@@ -16,9 +18,11 @@ namespace Model
         }
 
         [Key]
+        [XmlElement("id")]
         public int id { get; set; }
         [Required(ErrorMessage = "VariableName must be provided.")]
-
+        [XmlElement("Value")]
+        [NotMapped]
         public string Value
         {
             get
@@ -36,7 +40,8 @@ namespace Model
                 RevisionItems.Add(nValue);
             }
         }
-
+       
+        [XmlIgnore]
         public virtual ICollection<TemplateVariableRevisionItem> RevisionItems { get; set; }
 
         [NotMapped]
@@ -64,7 +69,6 @@ namespace Model
             return ValidationResults.Count() > 0;
         }
 
-
         public static bool operator ==(TemplateVariable obj1, TemplateVariable obj2)
         {
             return obj1.Equals(obj2);
@@ -85,5 +89,7 @@ namespace Model
         {
             return Value.GetHashCode();
         }
+
+
     }
 }

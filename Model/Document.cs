@@ -5,10 +5,11 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
+using System.Xml.Serialization;
 
 namespace Model
 {
-    public class Document : IValidatableObject
+    public class Document : IValidatableObject, IXmlSerializable
     {
         public Document()
         {
@@ -84,5 +85,20 @@ namespace Model
             return ValidationResults.Count() > 0;
         }
 
+
+        public System.Xml.Schema.XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(System.Xml.XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteXml(System.Xml.XmlWriter writer)
+        {
+            throw new NotImplementedException;
+        }
     }
 }

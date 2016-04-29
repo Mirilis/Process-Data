@@ -12,8 +12,8 @@ namespace Data.Interfaces
         ITemplateRepository Templates { get; }
         IDocumentRepository Documents { get; }
         IRepository<DataValue> DataValues { get; }
-        IRepository<TemplateData> TemplateData { get; }
-        IRepository<Revision> Revisions { get; }
+        IRepository<TemplateVariable> TemplateData { get; }
+        
 
     }
 }

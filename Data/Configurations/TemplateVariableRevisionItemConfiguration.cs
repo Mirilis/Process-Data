@@ -7,9 +7,9 @@ using Model;
 
 namespace Data.Configurations
 {
-    public class RevisionConfiguration : EntityTypeConfiguration<Revision>
+    public class TemplateVariableRevisionItemConfiguration : EntityTypeConfiguration<TemplateVariableRevisionItem>
     {
-        public RevisionConfiguration()
+        public TemplateVariableRevisionItemConfiguration()
         {
             this.Property(c => c.id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
         }

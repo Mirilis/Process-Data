@@ -7,3 +7,4 @@ c:\users\ahoover\documents\visual studio 2010\Projects\Process-Data\Model\bin\De
 c:\users\ahoover\documents\visual studio 2010\Projects\Process-Data\Model\bin\Debug\EntityFramework.SqlServer.dll
 c:\users\ahoover\documents\visual studio 2010\Projects\Process-Data\Model\bin\Debug\EntityFramework.xml
 c:\users\ahoover\documents\visual studio 2010\Projects\Process-Data\Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ahoover\Documents\Visual Studio 2010\Projects\Process-Data\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache

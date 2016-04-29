@@ -7,9 +7,9 @@ using Model;
 
 namespace Data.Configurations
 {
-    public class TemplateDataConfiguration : EntityTypeConfiguration<TemplateData>
+    public class TemplateVariableConfiguration : EntityTypeConfiguration<TemplateVariable>
     {
-        public TemplateDataConfiguration()
+        public TemplateVariableConfiguration()
         {
             this.Property(c => c.id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
         }

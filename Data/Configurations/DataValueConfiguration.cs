@@ -13,7 +13,7 @@ namespace Data.Configurations
     {
         public DataValueConfiguration()
         {
-            this.HasRequired(x => x.Revision);
+            this.HasMany(x => x.RevisionItems);
             this.Property(c => c.id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
          
             

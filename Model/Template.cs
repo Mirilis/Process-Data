@@ -11,13 +11,13 @@ namespace Model
     {
         public Template()
         {
-            TemplateData = new List<TemplateData>();
+            TemplateVariables = new List<TemplateVariable>();
         }
 
         [Key]
         public int id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<TemplateData> TemplateData { get; set; }
+        public virtual ICollection<TemplateVariable> TemplateVariables { get; set; }
         [NotMapped]
         public IList<ValidationResult> ValidationResults
         {
@@ -29,6 +29,15 @@ namespace Model
                 }
                 return _validationResults;
             }
+        }
+
+        public void AddTemplateVariable(TemplateVariable tv)
+        {
+            if (TemplateVariables.Any(x => x == tv))
+            {
+                throw new ArgumentException("Duplicate Value.");
+            }
+            TemplateVariables.Add(tv);
         }
 
         private List<ValidationResult> _validationResults;

@@ -13,28 +13,49 @@ namespace Process_Data
     {
         static void Main(string[] args)
         {
-            var newTemplate = new Template();
-            newTemplate.Name = "GeneratedCatfishName";
-            newTemplate.TemplateData.Add(new TemplateData() { VariableName = "LewBobMcGhee" });
+            var nTemplate = new Template();
+            nTemplate.Name = "GeneratedCatfishName";
+            nTemplate.AddTemplateVariable(new TemplateVariable() { Value = "ProductNumber" });
 
-            var newDocument = new Document();
-            newDocument.Title = "CatfishingUpTheRealMcCoy";
-            newDocument.Template = newTemplate;
-            var result = newDocument.DataValues
-                .ValidateAndAdd(new DataValue()
-                {
-                    Value = "TotalBiscuit".ToXMLString(),
-                    Revision = new Revision() { Author = "Me", Date = DateTime.Now }
-                });
+            var nDocument = new Document();
+            nDocument.Title = "CatfishingUpTheRealMcCoy";
+            nDocument.Template = nTemplate;
+            var nDataValue = new DataValue();
+            nDataValue.Name = "ProductNumber";
+            
+            var dv = nDocument.DataValues.Where(x => x == nDataValue);
+            if (dv.Any()) nDataValue = dv.First();
+            else nDocument.AddDataValue(nDataValue);
+
+            WriteDocumentInfo(nDocument);
+            nDataValue.Value = "RFBC3W4025AA";
+            WriteDocumentInfo(nDocument);
+            nDataValue.Value = "RFHC3W4025AA";
+            WriteDocumentInfo(nDocument);
+            
 
 
             
             IProcessDataManager Context = new ProcessDataManager();
-            Context.Documents.Add(newDocument);
+            Context.Documents.Add(nDocument);
             Context.Commit();
 
             var docs = Context.Documents.GetAll();
             var template = Context.Templates.GetAll();
+            Console.ReadKey();
+        }
+
+        public static void WriteDocumentInfo(Document doc)
+        {
+            Console.WriteLine("Document Information:");
+            Console.WriteLine(doc.Title);
+            Console.WriteLine("Document Contains the Following Data Values:");
+            foreach (var datavalue in doc.DataValues)
+            {
+                Console.WriteLine(datavalue.Name + ": " + datavalue.Value);
+            }
+
+            Console.WriteLine("=== Press a Key To Continue ===");
             Console.ReadKey();
         }
     }

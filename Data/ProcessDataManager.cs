@@ -13,8 +13,7 @@ namespace Data
         private ProcessDataDBContext dbContext { get; set; }
 
         private IRepository<DataValue> _dataValues;
-        private IRepository<Revision> _revisions;
-        private IRepository<TemplateData> _templateData;
+        private IRepository<TemplateVariable> _templateData;
         private ITemplateRepository _templates;
         private IDocumentRepository _documents;
 
@@ -72,29 +71,18 @@ namespace Data
             }
         }
 
-        public IRepository<TemplateData> TemplateData
+        public IRepository<TemplateVariable> TemplateData
         {
             get
             {
                 if (_templateData == null)
                 {
-                    _templateData = new ProcessDataRepository<TemplateData>(dbContext);
+                    _templateData = new ProcessDataRepository<TemplateVariable>(dbContext);
                 }
                 return _templateData;
             }
         }
 
-        public IRepository<Revision> Revisions
-        {
-            get
-            {
-                if (_revisions == null)
-                {
-                    _revisions = new ProcessDataRepository<Revision>(dbContext);
-                }
-                return _revisions;
-            }
-        }
 
         public void Dispose()
         {

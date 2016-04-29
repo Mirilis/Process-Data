@@ -7,11 +7,10 @@ using Model;
 
 namespace Data.Configurations
 {
-    public class TemplateConfiguration : EntityTypeConfiguration<Template>
+    public class DataValueRevisionConfiguration : EntityTypeConfiguration<DataValueRevisionItem>
     {
-        public TemplateConfiguration()
+        public DataValueRevisionConfiguration()
         {
-            this.HasMany(x=>x.TemplateVariables);
             this.Property(c => c.id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
         }
     }

@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\TemplateVariableRevisionItemConfiguration.cs" />
     <Compile Include="Repository\DocumentRepository.cs" />
     <Compile Include="Interfaces\IDocumentRepository.cs" />
     <Compile Include="Interfaces\IProcessDataManager.cs" />
@@ -56,13 +57,13 @@
     <Compile Include="Interfaces\ITemplateRepository.cs" />
     <Compile Include="ObjectXmlSerializer.cs" />
     <Compile Include="Repository\ProcessDataRepository.cs" />
-    <Compile Include="Configurations\RevisionConfiguration.cs" />
+    <Compile Include="Configurations\DataValueRevisionItemConfiguration.cs" />
     <Compile Include="Configurations\TemplateConfiguration.cs" />
     <Compile Include="Configurations\DataValueConfiguration.cs" />
     <Compile Include="Configurations\DocumentConfiguration.cs" />
     <Compile Include="ProcessDataDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Configurations\TemplateDataConfiguration.cs" />
+    <Compile Include="Configurations\TemplateVariableConfiguration.cs" />
     <Compile Include="Repository\TemplateRepository.cs" />
   </ItemGroup>
   <ItemGroup>

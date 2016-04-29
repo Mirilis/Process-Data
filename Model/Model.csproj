@@ -50,13 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataValue.cs" />
+    <Compile Include="DataValueRevisionItem.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IValidatableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Revision.cs" />
     <Compile Include="Template.cs" />
-    <Compile Include="TemplateData.cs" />
+    <Compile Include="TemplateVariable.cs" />
+    <Compile Include="TemplateVariableRevisionItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

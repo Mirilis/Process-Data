@@ -17,17 +17,19 @@ namespace Data
 
         public DbSet<Document> Documents { get; set; }
         public DbSet<DataValue> DataValues { get; set; }
-        public DbSet<Revision> Revisions { get; set; }
+        public DbSet<DataValueRevisionItem> DataValueRevisions { get; set; }
         public DbSet<Template> Templates { get; set; }
-        public DbSet<TemplateData> TemplateData { get; set; }
+        public DbSet<TemplateVariable> TemplateVariables { get; set; }
+        public DbSet<TemplateVariableRevisionItem> TemplateVariableRevisions {get; set;}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new DocumentConfiguration());
             modelBuilder.Configurations.Add(new TemplateConfiguration());
-            modelBuilder.Configurations.Add(new TemplateDataConfiguration());
+            modelBuilder.Configurations.Add(new TemplateVariableConfiguration());
             modelBuilder.Configurations.Add(new DataValueConfiguration());
-            modelBuilder.Configurations.Add(new RevisionConfiguration());
+            modelBuilder.Configurations.Add(new DataValueRevisionConfiguration());
+            modelBuilder.Configurations.Add(new TemplateVariableRevisionItemConfiguration());
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Process_Data
 
             var nDocument = new Document();
             nDocument.Title = "CatfishingUpTheRealMcCoy";
-            nDocument.Template = nTemplate;
+            nDocument.AddTemplate(nTemplate);
             var nDataValue = new DataValue();
             nDataValue.Name = "ProductNumber";
             

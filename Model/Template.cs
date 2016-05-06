@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Model
 {
-    [Serializable]
+    
     public class Template : IValidatableObject
     {
         public Template()
@@ -18,18 +18,15 @@ namespace Model
         }
 
         [Key]
-        [XmlElement("id")]
         public int id { get; set; }
-        [XmlElement("Name")]
+        
+        [Required(ErrorMessage="Must have a valid name.")]
         public string Name { get; set; }
         
         protected virtual ICollection<TemplateVariable> _TemplateVariables { get; set; }
         
-        [XmlElement]
         public IEnumerable<TemplateVariable> TemplateVariables { get { return _TemplateVariables; } }
         
-        
-
         public static Expression<Func<Template, ICollection<TemplateVariable>>> TemplateVariablesAccessor = f => f._TemplateVariables;
 
         [NotMapped]
@@ -64,6 +61,24 @@ namespace Model
         public bool HasErrors()
         {
             return ValidationResults.Count() > 0;
+        }
+
+        public static Template CombineTemplates(IEnumerable<Template> Templates)
+        {
+            var tmp = new Template();
+            tmp.Name = "Combined Template: ";
+            foreach (var tmpl in Templates)
+            {
+                tmp.Name = tmpl.Name + tmpl.Name + ", ";
+                foreach (var variable in tmpl.TemplateVariables)
+	            {
+                    if (!tmp.TemplateVariables.Contains(variable))
+                	{	    
+			            tmp.AddTemplateVariable(variable);
+                    }
+            	}
+            }
+            return tmp;
         }
 
     }

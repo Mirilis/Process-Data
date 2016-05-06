@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,28 +9,26 @@ using System.Xml.Serialization;
 
 namespace Model
 {
-    [Serializable]
     public class TemplateVariable : IValidatableObject
     {
 
         public TemplateVariable()
         {
-            RevisionItems = new List<TemplateVariableRevisionItem>();
+            _RevisionItems = new List<TemplateVariableRevisionItem>();
         }
 
         [Key]
-        [XmlElement("id")]
         public int id { get; set; }
+
         [Required(ErrorMessage = "VariableName must be provided.")]
-        [XmlElement("Value")]
         [NotMapped]
         public string Value
         {
             get
             {
-                if (RevisionItems.Count > 0)
+                if (_RevisionItems.Count > 0)
                 {
-                    return RevisionItems.OrderByDescending(x => x.Date).First().Value;
+                    return _RevisionItems.OrderByDescending(x => x.Date).First().Value;
                 }
                 return "No Value Exists.";
             }
@@ -37,12 +36,12 @@ namespace Model
             {
                 var nValue = new TemplateVariableRevisionItem();
                 nValue.Value = value;
-                RevisionItems.Add(nValue);
+                _RevisionItems.Add(nValue);
             }
         }
-       
-        [XmlIgnore]
-        public virtual ICollection<TemplateVariableRevisionItem> RevisionItems { get; set; }
+
+        public static Expression<Func<TemplateVariable, ICollection<TemplateVariableRevisionItem>>> TemplateValuesRevisionItemsAccessor = f => f._RevisionItems;
+        protected virtual ICollection<TemplateVariableRevisionItem> _RevisionItems { get; set; }
 
         [NotMapped]
         public IList<ValidationResult> ValidationResults

@@ -10,7 +10,6 @@ using System.Xml.Serialization;
 
 namespace Model
 {
-    [Serializable]
     public class Document : IValidatableObject
     {
         private Template _template;
@@ -19,43 +18,47 @@ namespace Model
 
         public Document()
         {
+            Templates = new List<Template>();
             _DataValues = new List<DataValue>();
         }
 
         [Key]
-        [XmlElement("id")]
         public int id { get; set; }
         
         [Required(ErrorMessage = "Documents Must have a Unique Title..")]
-        [XmlElement("Title")]
         public string Title { get; set; }
           
-        [Required(ErrorMessage= "Documents Must Be Based on a Template.")]
-        [XmlElement]
+        [NotMapped]
         public virtual Template Template 
         {
             get
             {
-                return _template;
-            }
-            set
-            {
-                _template = value;
-                ApplyTemplate();
 
+                return _template;
             }
         }
 
+        public virtual ICollection<Template> Templates { get; set; }
+
+        public void AddTemplate(Template TV)
+        {
+            Templates.Add(TV);
+            _template = Template.CombineTemplates(Templates);
+        }
         
+        public void RemoveTemplate(Template TV)
+        {
+            Templates.Remove(TV);
+            _template = Template.CombineTemplates(Templates);
+        }
+
         protected virtual ICollection<DataValue> _DataValues { get; set; }
-        
-        [XmlElement]
+
         public IEnumerable<DataValue> DataValues { get { return _DataValues; } }
         
         public static Expression<Func<Document, ICollection<DataValue>>> DataValuesAccessor = f => f._DataValues;
         
         [NotMapped]
-        [XmlIgnore]
         public IList<ValidationResult> ValidationResults
         {
             get
@@ -68,7 +71,7 @@ namespace Model
             }
         }
 
-        public void ApplyTemplate()
+        public void ApplyAllTemplates()
         {
             foreach (var TemplateData in Template.TemplateVariables)
             {
@@ -99,8 +102,6 @@ namespace Model
         {
             return ValidationResults.Count() > 0;
         }
-
-
 
     }
 }

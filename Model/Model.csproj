@@ -49,9 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityStatus.cs" />
     <Compile Include="DataValue.cs" />
     <Compile Include="DataValueRevisionItem.cs" />
     <Compile Include="Document.cs" />
+    <Compile Include="dtoDataValue.cs" />
+    <Compile Include="dtoDocument.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IValidatableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

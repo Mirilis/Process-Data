@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Serialization;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Model
 {
-    
-    [Serializable]
     public class DataValue : IValidatableObject
     {
 
         public DataValue()
         {
-            RevisionItems = new List<DataValueRevisionItem>();
+            _RevisionItems = new List<DataValueRevisionItem>();
         }
-        [XmlElement]
+ 
         [Key]
         public int id { get; set; }
-        [XmlElement]
+
         [Required(ErrorMessage = "Data Values must have a Variable Name.")]
         public string Name { get; set; }
-        [XmlElement]
+
         [NotMapped]
         public string Value
         {
             get
             {
-                if (RevisionItems.Count >0)
+                if (_RevisionItems.Count >0)
                 {
-                    return RevisionItems.OrderByDescending(x => x.Date).First().Value;    
+                    return _RevisionItems.OrderByDescending(x => x.Date).First().Value;    
                 }
                 return "No Value Exists.";
             }
@@ -39,11 +36,19 @@ namespace Model
             {
                 var nValue = new DataValueRevisionItem();
                 nValue.Value = value;
-                RevisionItems.Add(nValue);
+                _RevisionItems.Add(nValue);
             }
         }
-        [XmlIgnore]
-        public virtual ICollection<DataValueRevisionItem> RevisionItems { get; set; }
+
+        public ActivityStatus Status { get; set; }
+
+        public void ChangeStatus(ActivityStatus NewStatus)
+        {
+            this.Status = NewStatus;
+        }
+
+        public static Expression<Func<DataValue, ICollection<DataValueRevisionItem>>> DataValuesRevisionItemsAccessor = f => f._RevisionItems;
+        protected virtual ICollection<DataValueRevisionItem> _RevisionItems { get; set; }
         
         [NotMapped]
         public IList<ValidationResult> ValidationResults

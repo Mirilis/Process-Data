@@ -11,5 +11,6 @@ namespace Data.Interfaces
     public interface IDocumentRepository : IRepository<Document>
     {
         IQueryable<Document> GetDocumentsWithDataValue(string DataValue);
+        IQueryable<Document> GetAllAndRelated();
     }
 }

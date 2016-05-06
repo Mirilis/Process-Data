@@ -19,5 +19,10 @@ namespace Data.Repository
         {
             return GetAll().Where(y => y.DataValues.Any(x=>x.Value == DataValue));
         }
-    }
+
+        public IQueryable<Document>  GetAllAndRelated()
+        {
+            return GetAll().Include(Document.DataValuesAccessor);
+        }
+}
 }

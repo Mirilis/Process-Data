@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 using System.Text;
 
 namespace Model
@@ -8,10 +9,15 @@ namespace Model
     [Serializable]
     public class dtoDataValue
     {
-        public int id { get; private set; }
-        public string Name { get; private set; }
-        public string Value { get; private set; }
-        public ActivityStatus Status { get; private set; }
+        public int id { get; set; }
+        public string Name { get;  set; }
+        public string Value { get;  set; }
+        public ActivityStatus Status { get; set; }
+
+        private dtoDataValue()
+        { 
+        }
+
 
         public dtoDataValue(DataValue DV)
         {

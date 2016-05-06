@@ -30,8 +30,8 @@ namespace Data
         protected void CreateDbContext()
         {
             dbContext = new ProcessDataDBContext();
-            dbContext.Configuration.ProxyCreationEnabled = false;
-            dbContext.Configuration.LazyLoadingEnabled = false;
+            dbContext.Configuration.ProxyCreationEnabled = true;
+            dbContext.Configuration.LazyLoadingEnabled = true;
             dbContext.Configuration.ValidateOnSaveEnabled = false;
             //dbContext.Configuration.AutoDetectChangesEnabled = false;
         }

@@ -8,10 +8,14 @@ namespace Model
     [Serializable]
     public class dtoDocument
     {
+        public List<dtoDataValue> DataValues { get;  set; }
+        public int id { get;  set; }
+        public string Title { get;  set; }
+
+        private dtoDocument()
+        { 
+        }
         
-        public IEnumerable<dtoDataValue> DataValues { get; private set; }
-        public int id { get; private set; }
-        public string Title { get; private set; }
         public dtoDocument(Document Doc)
         {
             DataValues = new List<dtoDataValue>();

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Model
 {
+    [Serializable]
     public enum ActivityStatus
     {
         Active,
